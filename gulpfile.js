@@ -8,6 +8,8 @@ const clean = require('gulp-clean');
 const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
 const htmlmin = require('gulp-htmlmin');
+const gulpImagemin = require('gulp-imagemin');
+const tinypng = require('gulp-tinypng-compress');
 
 // HTML: minify
 gulp.task('html', () => {
@@ -44,11 +46,16 @@ gulp.task('js', () => {
   gulp.watch('./src/js/*.js', ['js']); // => 監測 js 檔案更新
 });
 
-// Image: 
-gulp.task('image', () => {
-  gulp.src('./src/image/*')
-    .pipe(gulp.dest('./dist/image/'));
+gulp.task('tinypng', function () {
+  gulp.src('./src/image/*.{png,jpg,jpeg}')
+    .pipe(tinypng({
+      key: 'GL3Dt8zj8BTvBZ4KvMM0hqbChmrYHp7x',
+      sigFile: 'image/.tinypng-sigs',
+      log: true
+    }))
+    .pipe(gulp.dest('./dist/image'));
 });
+
 
 gulp.task('clean', () => {
   return gulp.src('./dist')
@@ -56,4 +63,4 @@ gulp.task('clean', () => {
 });
 
 // default task
-gulp.task('default', ['html', 'sass', 'js', 'image']);
+gulp.task('default', ['html', 'sass', 'js']);
