@@ -9,6 +9,19 @@ const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
 const htmlmin = require('gulp-htmlmin');
 const tinypng = require('gulp-tinypng-compress');
+const extReplace = require('gulp-ext-replace');
+const webp = require('imagemin-webp');
+const imagemin = require('gulp-imagemin');
+
+gulp.task('webp', () => {
+  return gulp.src('./dist/image/*')
+    .pipe(imagemin([
+      webp({ quality: 50 })
+    ]))
+    .pipe(extReplace('.webp'))
+    .pipe(gulp.dest('./dist/webp/'))
+});
+
 
 // HTML: minify
 gulp.task('html', () => {

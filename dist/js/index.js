@@ -1,8 +1,8 @@
-// (function () {
+(function () {
   var ll = new LazyLoad({
     elements_selector: ".lazy",
   });
-// })();
+})();
 
 window.addEventListener("hashchange", function (event) {
   event.preventDefault();

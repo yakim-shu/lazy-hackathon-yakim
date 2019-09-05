@@ -22,6 +22,15 @@ $breakpoints: ("phone": 375px, "phone-l": 480px, "tablet-s": 640px, "tablet": 76
 
 /* ------- mixins ------- */
 
+/* webp */ 
+@mixin bg-webp($url) {
+    background-image: url('./../image/'+ $url + '.jpg');
+
+    .webp & {
+        background-image: url('./../webp/'+ $url + '.webp');
+    }
+}
+
 /* size */
 @mixin size($width, $height: $width) {
     width: $width;
@@ -312,12 +321,12 @@ ul {
     align-items: center;
 
     .bg {
+        @include bg-webp('bg_header');
         width: 80%;
         height: 70vh;
         margin: 0 auto;
-        background: url('./../image/bg_header.jpg') no-repeat center center;
-        // background-repeat: no-repeat;
-        // background-position: center center;
+        background-repeat: no-repeat;
+        background-position: center center;
         background-size: 80% auto;
     }
 }
