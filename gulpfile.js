@@ -8,7 +8,6 @@ const clean = require('gulp-clean');
 const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
 const htmlmin = require('gulp-htmlmin');
-const gulpImagemin = require('gulp-imagemin');
 const tinypng = require('gulp-tinypng-compress');
 
 // HTML: minify

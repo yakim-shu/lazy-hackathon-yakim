@@ -1,3 +1,9 @@
+// (function () {
+  var ll = new LazyLoad({
+    elements_selector: ".lazy",
+  });
+// })();
+
 window.addEventListener("hashchange", function (event) {
   event.preventDefault();
   const url = location.hash.substr(1);
