@@ -12,6 +12,8 @@ const tinypng = require('gulp-tinypng-compress');
 const extReplace = require('gulp-ext-replace');
 const webp = require('imagemin-webp');
 const imagemin = require('gulp-imagemin');
+const uncss = require('gulp-uncss');
+const concat = require('gulp-concat');
 
 gulp.task('webp', () => {
   return gulp.src('./dist/image/*')
@@ -31,6 +33,16 @@ gulp.task('html', () => {
   gulp.watch('./src/*.html', ['html']);
 });
 
+// clean CSS => remove useless CSS
+gulp.task('cleanCSS', () => {
+  gulp.src('./src/css/*.css')
+    .pipe(uncss({
+      html: ['./src/index.html']
+    }))
+    .pipe(cssnano())
+    .pipe(gulp.dest('./src/css'));
+});
+
 // SCSS: watch & compile & minify
 gulp.task('sass', () => {
   const processors = [
@@ -42,11 +54,19 @@ gulp.task('sass', () => {
     .pipe(postcss(processors))
     .pipe(cssnano())
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('./dist/css'));
+    .pipe(gulp.dest('./dist/css/build'));
   gulp.src('./src/css/*.css')
     .pipe(cssnano())
-    .pipe(gulp.dest('./dist/css'));
+    .pipe(gulp.dest('./dist/css/build'));
   gulp.watch('./src/scss/*.scss', ['sass']); // => 監測 scss 檔案更新
+  gulp.watch('./src/css/*.css', ['sass']); // => 監測 scss 檔案更新
+});
+
+// Concat CSS & JS
+gulp.task('concat', function () {
+  return gulp.src('./dist/css/build/*.css')
+    .pipe(concat('style.css'))
+    .pipe(gulp.dest('./dist/css'));
 });
 
 
@@ -58,6 +78,7 @@ gulp.task('js', () => {
   gulp.watch('./src/js/*.js', ['js']); // => 監測 js 檔案更新
 });
 
+// Image compress
 gulp.task('tinypng', function () {
   gulp.src('./src/image/*.{png,jpg,jpeg}')
     .pipe(tinypng({
@@ -75,4 +96,4 @@ gulp.task('clean', () => {
 });
 
 // default task
-gulp.task('default', ['html', 'sass', 'js']);
+gulp.task('default', ['html', 'sass', 'js', 'concat']);
