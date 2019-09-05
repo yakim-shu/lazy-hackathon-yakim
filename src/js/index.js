@@ -1,9 +1,15 @@
+
+// 檢查瀏覽器是否支援 webp
+!function (e) { "use strict"; function s(s) { if (s) { var t = e.documentElement; t.classList ? t.classList.add("webp") : t.className += " webp", window.sessionStorage.setItem("webpSupport", !0) } } !function (e) { if (window.sessionStorage && window.sessionStorage.getItem("webpSupport")) s(!0); else { var t = new Image; t.onload = t.onerror = function () { e(2 === t.height) }, t.src = "data:image/webp;base64,UklGRi4AAABXRUJQVlA4TCEAAAAvAUAAEB8wAiMwAgSSNtse/cXjxyCCmrYNWPwmHRH9jwMA" } }(s) }(document);
+
+// lazy load
 (function () {
   var ll = new LazyLoad({
     elements_selector: ".lazy",
   });
 })();
 
+// 選單滑動
 window.addEventListener("hashchange", function (event) {
   event.preventDefault();
   const url = location.hash.substr(1);

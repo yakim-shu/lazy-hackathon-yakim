@@ -63,10 +63,13 @@ gulp.task('sass', () => {
 });
 
 // Concat CSS & JS
-gulp.task('concat', function () {
-  return gulp.src('./dist/css/build/*.css')
+gulp.task('concat', () => {
+  gulp.src('./dist/css/build/*.css')
     .pipe(concat('style.css'))
     .pipe(gulp.dest('./dist/css'));
+  gulp.src(['./dist/js/build/*-min.js', '!./dist/js/build/jquery-3.4.1.slim-min.js'])
+    .pipe(concat('app.js'))
+    .pipe(gulp.dest('./dist/js'));
 });
 
 
@@ -74,7 +77,7 @@ gulp.task('concat', function () {
 gulp.task('js', () => {
   gulp.src('./src/js/*.js')
     .pipe(minify())
-    .pipe(gulp.dest('./dist/js'));
+    .pipe(gulp.dest('./dist/js/build'));
   gulp.watch('./src/js/*.js', ['js']); // => 監測 js 檔案更新
 });
 
