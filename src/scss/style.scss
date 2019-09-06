@@ -24,7 +24,7 @@ $breakpoints: ("phone": 375px, "phone-l": 480px, "tablet-s": 640px, "tablet": 76
 
 /* webp */ 
 @mixin bg-webp($url) {
-    html:not(.webp) & {
+    .no-webp & {
         background-image: url('./../image/'+ $url + '.jpg');
     }
 
@@ -70,8 +70,8 @@ $breakpoints: ("phone": 375px, "phone-l": 480px, "tablet-s": 640px, "tablet": 76
     display: $icon-type;
     background-color: $icon-color;
     mask-size: cover;
-    
-    html:not(.webp) & {
+
+    .no-webp & {
         mask-image: url('./../image/'+ $icon-url + '.png');
     }
     

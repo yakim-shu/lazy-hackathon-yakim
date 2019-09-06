@@ -1,6 +1,22 @@
 
 // 檢查瀏覽器是否支援 webp
-!function (e) { "use strict"; function s(s) { if (s) { var t = e.documentElement; t.classList ? t.classList.add("webp") : t.className += " webp", window.sessionStorage.setItem("webpSupport", !0) } } !function (e) { if (window.sessionStorage && window.sessionStorage.getItem("webpSupport")) s(!0); else { var t = new Image; t.onload = t.onerror = function () { e(2 === t.height) }, t.src = "data:image/webp;base64,UklGRi4AAABXRUJQVlA4TCEAAAAvAUAAEB8wAiMwAgSSNtse/cXjxyCCmrYNWPwmHRH9jwMA" } }(s) }(document);
+// !function (e) { "use strict"; function s(s) { if (s) { var t = e.documentElement; t.classList ? t.classList.add("webp") : t.className += " webp", window.sessionStorage.setItem("webpSupport", !0) } } !function (e) { if (window.sessionStorage && window.sessionStorage.getItem("webpSupport")) s(!0); else { var t = new Image; t.onload = t.onerror = function () { e(2 === t.height) }, t.src = "data:image/webp;base64,UklGRi4AAABXRUJQVlA4TCEAAAAvAUAAEB8wAiMwAgSSNtse/cXjxyCCmrYNWPwmHRH9jwMA" } }(s) }(document);
+// webp-detect.js
+window.addEventListener('DOMContentLoaded', async () => {
+  const loadTestImg = () => new Promise((resolve) => {
+    const imgSrc = 'data:image/webp;base64,UklGRlIAAABXRUJQVlA4WAoAAAASAAAAAAAAAAAAQU5JTQYAAAD/////AABBTk1GJgAAAAAAAAAAAAAAAAAAAGQAAABWUDhMDQAAAC8AAAAQBxAREYiI/gcA';
+    const pixel = new Image();
+    pixel.addEventListener('load', () => {
+      const isSuccess = (pixel.width > 0) && (pixel.height > 0);
+      resolve(isSuccess);
+    });
+    pixel.addEventListener('error', () => { resolve(false); });
+    pixel.setAttribute('src', imgSrc); // 開始載入測試圖
+  });
+
+  const hasSupport = await loadTestImg();
+  document.documentElement.classList.add(hasSupport ? 'webp' : 'no-webp');
+});
 
 // lazy load
 (function () {
