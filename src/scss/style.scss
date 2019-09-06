@@ -24,7 +24,9 @@ $breakpoints: ("phone": 375px, "phone-l": 480px, "tablet-s": 640px, "tablet": 76
 
 /* webp */ 
 @mixin bg-webp($url) {
-    background-image: url('./../image/'+ $url + '.jpg');
+    html:not(.webp) & {
+        background-image: url('./../image/'+ $url + '.jpg');
+    }
 
     .webp & {
         background-image: url('./../webp/'+ $url + '.webp');
@@ -68,7 +70,14 @@ $breakpoints: ("phone": 375px, "phone-l": 480px, "tablet-s": 640px, "tablet": 76
     display: $icon-type;
     background-color: $icon-color;
     mask-size: cover;
-    mask-image: url('./../image/'+ $icon-url);
+    
+    html:not(.webp) & {
+        mask-image: url('./../image/'+ $icon-url + '.png');
+    }
+    
+    .webp & {
+        mask-image: url('./../webp/'+ $icon-url + '.webp');
+    }
 }
 
 
@@ -123,7 +132,7 @@ $breakpoints: ("phone": 375px, "phone-l": 480px, "tablet-s": 640px, "tablet": 76
             @include pseudo();
             @include size(20px);
             @include icon(#000,
-                '');
+                'icon_title');
             @include relative($right: 5px, $top: 3px);
         }
     }
@@ -137,41 +146,6 @@ $breakpoints: ("phone": 375px, "phone-l": 480px, "tablet-s": 640px, "tablet": 76
     }
 }
 
-
-/* title - 各區塊標題 */
-.section__title span::before {
-    .description & {
-        mask-image: url('./../image/title_description.png');
-    }
-
-    .team & {
-        width: 22px;
-        height: 22px;
-        mask-image: url('./../image/title_team.png');
-    }
-
-    .schedule & {
-        mask-image: url('./../image/title_schedule.png');
-    }
-
-    .history & {
-        width: 25px;
-        height: 25px;
-        top: 5px;
-        mask-image: url('./../image/title_history.png');
-        background-color: $color_main;
-    }
-
-    .judge & {
-        color: #fff;
-        mask-image: url('./../image/title_judge.png');
-        background-color: $color_main;
-    }
-
-    .subscribe & {
-        mask-image: url('./../image/title_subscribe.png');
-    }
-}
 
 
 /* ------- layout ------- */
@@ -226,6 +200,43 @@ ul {
     }
 }
 
+/* title - 各區塊標題 */
+.section__title span::before {
+    width: 20px;
+    height: 20px;
+
+    .description & {
+        mask-position: 0 0;
+    }
+
+    .team & {
+        width: 22px;
+        height: 22px;
+        mask-position: 0 (100% / 5);
+    }
+
+    .schedule & {
+        mask-position: 0 (100% / 5 * 2);
+    }
+
+    .history & {
+        width: 25px;
+        height: 25px;
+        top: 5px;
+        mask-position: 0 (100% / 5 * 3);
+        background-color: $color_main;
+    }
+
+    .judge & {
+        color: #fff;
+        mask-position: 0 (100% / 5 * 4);
+        background-color: $color_main;
+    }
+
+    .subscribe & {
+        mask-position: 0 100%;
+    }
+}
 
 /* ------- nav ------- */
 .nav {
@@ -484,7 +495,7 @@ ul {
         @include pseudo($display: inline-block);
         @include size(15px);
         @include icon(#000,
-            'add-circular-outlined-button.png');
+            'add-circular-outlined-button');
         @include absolute($right: 10px);
     }
 
@@ -719,24 +730,24 @@ ul {
     @include absolute($left: 0, $top: 0);
     @include size(70px);
     @include icon($color_main,
-        '');
+        'icon-comments');
 
     &.icon-strength {
-        mask-image: url('./../image/icon-strength.png');
+        mask-position: 0 0;
     }
 
     &.icon-buddha {
         width: 80px;
         height: 80px;
-        mask-image: url('./../image/icon-buddha.png');
+        mask-position: 0 (100% / 3);
     }
 
     &.icon-sleep {
-        mask-image: url('./../image/icon-sleep.png');
+        mask-position: 0 (100% / 3 * 2);
     }
 
     &.icon-bao {
-        mask-image: url('./../image/icon-bao.png');
+        mask-position: 0 100%;
     }
 }
 
@@ -809,7 +820,7 @@ ul {
         @include pseudo();
         @include size(20px);
         @include icon(#fff,
-            'add-circular-outlined-button.png',
+            'add-circular-outlined-button',
             block);
         @include absolute($left: calc(50% - 10px), $bottom: calc(50% - 10px));
         opacity: 0;
@@ -1067,7 +1078,7 @@ ul {
 
     .footer__social-icon {
         @include size(30px);
-        @include icon(#bbb, '');
+        @include icon(#bbb, 'icon_social-media');
         margin-left: 5px;
         cursor: pointer;
 
@@ -1076,19 +1087,19 @@ ul {
         }
 
         &.icon-fb {
-            mask-image: url('./../image/icon-fb.png');
+            mask-position: 0 0;
         }
 
         &.icon-twitter {
-            mask-image: url('./../image/icon-twitter.png');
+            mask-position: 0 (100% / 3);
         }
 
         &.icon-ig {
-            mask-image: url('./../image/icon-ig.png');
+            mask-position: 0 (100% / 3 * 2);
         }
 
         &.icon-g-plus {
-            mask-image: url('./../image/icon-g-plus.png');
+            mask-position: 0 100%;
         }
     }
 }

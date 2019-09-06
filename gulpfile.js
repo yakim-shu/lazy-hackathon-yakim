@@ -15,6 +15,7 @@ const imagemin = require('gulp-imagemin');
 const uncss = require('gulp-uncss');
 const concat = require('gulp-concat');
 
+
 gulp.task('webp', () => {
   return gulp.src('./dist/image/*')
     .pipe(imagemin([
@@ -58,8 +59,7 @@ gulp.task('sass', () => {
   gulp.src('./src/css/*.css')
     .pipe(cssnano())
     .pipe(gulp.dest('./dist/css/build'));
-  gulp.watch('./src/scss/*.scss', ['sass']); // => 監測 scss 檔案更新
-  gulp.watch('./src/css/*.css', ['sass']); // => 監測 scss 檔案更新
+  gulp.watch('./src/scss/style.scss', ['concat', 'sass']); // => 監測 scss 檔案更新
 });
 
 // Concat CSS & JS
@@ -99,4 +99,4 @@ gulp.task('clean', () => {
 });
 
 // default task
-gulp.task('default', ['html', 'sass', 'js', 'concat']);
+gulp.task('default', ['concat', 'html', 'sass', 'js']);
