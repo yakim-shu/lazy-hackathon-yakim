@@ -26,6 +26,7 @@ gulp.task('webp', () => {
 });
 
 
+
 // HTML: minify
 gulp.task('html', () => {
   gulp.src('./src/*.html')
@@ -59,6 +60,8 @@ gulp.task('sass', () => {
   gulp.src('./src/css/*.css')
     .pipe(cssnano())
     .pipe(gulp.dest('./dist/css/build'));
+  gulp.src('./src/scss/fonts/*')
+    .pipe(gulp.dest('./dist/css/fonts'));
   gulp.watch('./src/scss/style.scss', ['concat', 'sass']); // => 監測 scss 檔案更新
 });
 
